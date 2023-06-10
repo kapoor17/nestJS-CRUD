@@ -32,13 +32,15 @@ export class AuthService {
 
       return user;
     } catch(error) {
+      /**
+       * check this, it is coming out to as false
+       */
       if(error instanceof PrismaClientKnownRequestError){
         console.log("herhehrhe2")
         if(error.code === 'P2002'){
           throw new ForbiddenException('Credentials Taken');
         }
       }else{
-        console.log("herhehrhe")
         throw error
       }
     }
