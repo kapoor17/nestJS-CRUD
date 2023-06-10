@@ -19,8 +19,15 @@ export class AuthService {
       data:{
         email : dto.email,
         hash
+      },
+      select:{
+        email:true,
+        firstName:true,
+        createdAt:true,
       }
     })
+
+    // delete user.hash;
     return user;
   }
 }
