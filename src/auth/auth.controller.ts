@@ -16,6 +16,6 @@ export class AuthController {
     console.log({
       dto
     })
-    return this.authSerive.signin();
+    return this.authSerive.signin(dto);
   }
 }
