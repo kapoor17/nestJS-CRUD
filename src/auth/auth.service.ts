@@ -3,7 +3,7 @@ import { User, Bookmark } from "@prisma/client";
 import { AuthDto } from "src/dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import * as argon from "argon2";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 @Injectable({})
 export class AuthService {
@@ -32,8 +32,8 @@ export class AuthService {
 
       return user;
     } catch(error) {
-      /**
-       * check this, it is coming out to as false
+      /*
+       * issue fixed, issue in import 
        */
       if(error instanceof PrismaClientKnownRequestError){
         console.log("herhehrhe2")
