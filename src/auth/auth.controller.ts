@@ -12,12 +12,9 @@ export class AuthController {
   }
 
   @Post("signin")
-  signin(@Body('email') email : string, @Body('password', ParseIntPipe) password : string) {
+  signin(@Body() dto : AuthDto) {
     console.log({
-      email,
-      typeOfEmail: typeof email,
-      password,
-      typeOfPassword: typeof password,
+      dto
     })
     return this.authSerive.signin();
   }
