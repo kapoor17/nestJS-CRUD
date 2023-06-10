@@ -8,14 +8,15 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 @Injectable({})
 export class AuthService {
   constructor(private prisma: PrismaService) {}
-  signup() {
+  signin() {
     return { msg: "this is signup" };
   }
 
-  async signin(dto : AuthDto) {
+  async signup(dto : AuthDto) {
     try{
       // generate the password
       const hash = await argon.hash(dto.password);
+
       // save the user
       const user = await this.prisma.user.create({
         data:{
@@ -28,21 +29,17 @@ export class AuthService {
           createdAt:true,
         }
       })
-      // or delete user.hash;
-
+      // or `delete user.hash`;
       return user;
+
     } catch(error) {
-      /*
-       * issue fixed, issue in import 
-       */
+      // issue fixed, issue in import 
       if(error instanceof PrismaClientKnownRequestError){
-        console.log("herhehrhe2")
         if(error.code === 'P2002'){
           throw new ForbiddenException('Credentials Taken');
         }
-      }else{
-        throw error
       }
+      throw error;
     }
   }
 }
